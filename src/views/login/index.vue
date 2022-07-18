@@ -58,7 +58,6 @@
 <script setup>
 // 导入组件之后无需注册可直接使用
 import { ref } from 'vue'
-import router from '@/router'
 import { useStore } from 'vuex'
 import { validatePassword } from './rules'
 const loginForm = ref({
@@ -105,9 +104,8 @@ const handleLogin = () => {
     store
       .dispatch('user/login', loginForm.value)
       .then((data) => {
-        loding.value = false
         //3登录后处理
-        router.push('/')
+        loding.value = false
       })
       .catch((err) => {
         console.log(err)
