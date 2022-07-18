@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
-<script setup></script>
+<script>
+export default {
+  name: 'App'
+}
+</script>
 
-<style lang="scss" scoped></style>
+<style></style>
