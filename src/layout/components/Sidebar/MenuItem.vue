@@ -5,6 +5,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
+import { generateTitle } from '@/utils/i18n'
 defineProps({
   title: {
     type: String,
@@ -15,7 +16,6 @@ defineProps({
     required: true
   }
 })
-const generateTitle = (title) => title
 </script>
 
 <style lang="scss" scoped></style>

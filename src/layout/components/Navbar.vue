@@ -2,8 +2,11 @@
   <div class="navbar">
     <!-- hamburger -->
     <hamburger class="hamburger-container" />
+    <!-- breadcrumb -->
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <!-- 切换语言 -->
+      <lang-select class="right-menu-item hover-effect"></lang-select>
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click" type="small">
         <div class="avatar-wrapper">
@@ -17,13 +20,15 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/"
-              ><el-dropdown-item>主页</el-dropdown-item></router-link
+              ><el-dropdown-item>
+                {{ $t('msg.navBar.home') }}
+              </el-dropdown-item></router-link
             >
             <a target="_blank" href="https://github.com/awspi"
               ><el-dropdown-item>github</el-dropdown-item></a
             >
-            <el-dropdown-item divided @click="logout"
-              >退出登录</el-dropdown-item
+            <el-dropdown-item divided @click="logout">
+              {{ $t('msg.navBar.logout') }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </template>
@@ -36,8 +41,9 @@
 import { Tools } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
-import Hamburger from '@/components/hamburger'
+import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
+import LangSelect from '@/components/LangSelect'
 const store = useStore()
 const logout = () => {
   ElMessage.success('退出成功')
@@ -72,6 +78,16 @@ const logout = () => {
     align-items: center;
     float: right;
     padding-right: 16px;
+    ::v-deep .right-menu-item {
+      display: inline-block;
+      padding: 0 18px 0 0;
+      font-size: 24px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+      &.hover-effect {
+        cursor: pointer;
+      }
+    }
     ::v-deep .avatar-container {
       cursor: pointer;
       .avatar-wrapper {

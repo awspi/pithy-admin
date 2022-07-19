@@ -24,6 +24,8 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
+    //设置i8n
+    config.resolve.alias.set('vue-i18n', 'vue-i18n/dist/vue-i18n.cjs.js')
   },
   devServer: {
     // 配置反向代理

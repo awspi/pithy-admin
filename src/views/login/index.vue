@@ -7,7 +7,9 @@
       :rules="loginRules"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <!-- 切换语言  -->
+        <lang-select class="lang-select"></lang-select>
       </div>
 
       <el-form-item prop="username">
@@ -42,36 +44,35 @@
         style="width: 100%; margin-bottom: 30px"
         @click="handleLogin"
         :loding="loding"
-        >登录</el-button
+        >{{ $t('msg.login.loginBtn') }}</el-button
       >
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
-    <div class="msg">
-      三种权限账号：<br />
-      1. 超级管理员账号： super-admin<br />
-      2. 管理员账号：admin<br />
-      3. 测试可配置账号：test<br />
-      密码统一为：123456
-    </div>
   </div>
 </template>
 
 <script setup>
 // 导入组件之后无需注册可直接使用
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { validatePassword } from './rules'
+import LangSelect from '@/components/LangSelect'
+import { useI18n } from 'vue-i18n'
 const loginForm = ref({
   username: 'super-admin',
   password: '123456'
 })
 
 //loginRules
+const i18n = useI18n()
 const loginRules = ref({
   username: [
     {
       required: true,
       trigger: 'blur',
-      message: '用户名为必填项'
+      message: computed(() => {
+        return i18n.t('msg.login.usernameRule')
+      })
     }
   ],
   password: [
@@ -133,7 +134,11 @@ $cursor: #fff;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
-
+    .tips {
+      font-size: 16px;
+      color: #fff;
+      line-height: 24px;
+    }
     ::v-deep .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.1);
@@ -186,6 +191,16 @@ $cursor: #fff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  ::v-deep .lang-select {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    background-color: #fff;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 }
 </style>
