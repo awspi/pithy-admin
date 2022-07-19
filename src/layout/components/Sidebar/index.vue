@@ -1,7 +1,40 @@
 <template>
-  <div>SideBar</div>
+  <div class="">
+    <div class="logo-container">
+      <el-avatar
+        :size="logoHeight"
+        shape="square"
+        src="https://img9.vilipix.com/picture/pages/regular/2021/01/16/23/36/86908634_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000"
+      ></el-avatar>
+      <h2 class="logo-title" v-if="$store.getters.sidebarOpened">
+        pithy-admin
+      </h2>
+    </div>
+    <el-scrollbar>
+      <sidebar-menu></sidebar-menu>
+    </el-scrollbar>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import SidebarMenu from './SidebarMenu.vue'
+const logoHeight = 44
+</script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.logo-container {
+  height: v-bind(logoHeight) + px;
+  padding: 10px 0 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .logo-title {
+    margin-left: 10px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 50px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+}
+</style>

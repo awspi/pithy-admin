@@ -5,6 +5,11 @@ function resolve(dir) {
 }
 module.exports = defineConfig({
   transpileDependencies: true,
+  configureWebpack: {
+    resolve: {
+      fallback: { path: require.resolve('path-browserify') }
+    }
+  },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()

@@ -1,8 +1,11 @@
 <template>
   <div class="navbar">
+    <!-- hamburger -->
+    <hamburger class="hamburger-container" />
+    <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <!-- 头像 -->
-      <el-dropdown class="avatar-container" trigger="hover" type="small">
+      <el-dropdown class="avatar-container" trigger="click" type="small">
         <div class="avatar-wrapper">
           <el-avatar
             shape="square"
@@ -33,6 +36,8 @@
 import { Tools } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
+import Hamburger from '@/components/hamburger'
+import Breadcrumb from '@/components/Breadcrumb'
 const store = useStore()
 const logout = () => {
   ElMessage.success('退出成功')
@@ -47,6 +52,21 @@ const logout = () => {
   position: relative;
   background-color: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.1);
+
+  .hamburger-container {
+    line-height: 46px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    //hover
+    transition: background 0.5s;
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+  .breadcrumb-container {
+    float: left;
+  }
   .right-menu {
     display: flex;
     align-items: center;
