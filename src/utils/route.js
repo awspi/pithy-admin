@@ -17,7 +17,7 @@ const getChildRoutes = (routes) => {
  * 例如{path: '/user/manage', redirect: undefined, name: undefined, meta: {…}, aliasOf: undefined, …} 不应该存在,是属于user下的
  *
  */
-export const filterRouters = (routes) => {
+export const filterRoutes = (routes) => {
   //获取所有的子集路由
   //查重删除
   const childRoutes = getChildRoutes(routes)

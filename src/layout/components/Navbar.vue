@@ -5,6 +5,10 @@
     <!-- breadcrumb -->
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <!-- 搜索 -->
+      <header-search class="right-menu-item"></header-search>
+      <!-- 切换全屏 -->
+      <screenfull class="right-menu-item"></screenfull>
       <!-- 切换主题 -->
       <theme-select class="right-menu-item"></theme-select>
       <!-- 切换语言 -->
@@ -47,6 +51,8 @@ import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
 import ThemeSelect from '@/components/ThemeSelect'
+import Screenfull from '@/components/Screenfull'
+import HeaderSearch from '@/components/HeaderSearch'
 const store = useStore()
 const logout = () => {
   ElMessage.success('退出成功')

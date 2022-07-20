@@ -19,12 +19,12 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { filterRouters, generateMenus } from '@/utils/route'
+import { filterRoutes, generateMenus } from '@/utils/route'
 import SidebarItem from './SidebarItem.vue'
 const router = useRouter()
 const routes = computed(() => {
-  const filterRoutes = filterRouters(router.getRoutes())
-  return generateMenus(filterRoutes)
+  const fRoutes = filterRoutes(router.getRoutes())
+  return generateMenus(fRoutes)
 })
 // console.log(JSON.stringify(routes.value))
 
