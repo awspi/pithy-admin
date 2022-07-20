@@ -11,6 +11,13 @@ module.exports = defineConfig({
     }
   },
   chainWebpack(config) {
+    config.module
+      .rule('element-plus-2')
+      .test(/\.mjs$/)
+      // https://webpack.docschina.org/configuration/module/#ruletype
+      .type('javascript/auto')
+      .include.add(/node_modules/)
+      .end()
     // 设置 svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()
     config.module

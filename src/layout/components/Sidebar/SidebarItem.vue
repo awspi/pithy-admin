@@ -1,12 +1,12 @@
 <template>
-  <el-submenu v-if="route.children" :index="route.path">
+  <el-sub-menu v-if="route.children" :index="route.path">
     <template #title>
       <menu-item :title="route.meta.title" :icon="route.meta.icon" />
     </template>
     <!-- 循环渲染 -->
     <sidebar-item v-for="item in route.children" :key="item.path" :route="item">
     </sidebar-item>
-  </el-submenu>
+  </el-sub-menu>
   <el-menu-item v-else :index="route.path">
     <menu-item :title="route.meta.title" :icon="route.meta.icon"
   /></el-menu-item>
