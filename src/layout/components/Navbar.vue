@@ -3,14 +3,16 @@
     <!-- hamburger -->
     <hamburger class="hamburger-container" />
     <!-- breadcrumb -->
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb id="guide-breadcrumb" class="breadcrumb-container" />
     <div class="right-menu">
+      <!-- 引导guide -->
+      <guide class="right-menu-item hover-effect"></guide>
       <!-- 搜索 -->
-      <header-search class="right-menu-item"></header-search>
+      <header-search class="right-menu-item hover-effect"></header-search>
       <!-- 切换全屏 -->
-      <screenfull class="right-menu-item"></screenfull>
+      <screenfull class="right-menu-item hover-effect"></screenfull>
       <!-- 切换主题 -->
-      <theme-select class="right-menu-item"></theme-select>
+      <theme-select class="right-menu-item hover-effect"></theme-select>
       <!-- 切换语言 -->
       <lang-select class="right-menu-item hover-effect"></lang-select>
       <!-- 头像 -->
@@ -53,6 +55,7 @@ import LangSelect from '@/components/LangSelect'
 import ThemeSelect from '@/components/ThemeSelect'
 import Screenfull from '@/components/Screenfull'
 import HeaderSearch from '@/components/HeaderSearch'
+import Guide from '@/components/Guide'
 const store = useStore()
 const logout = () => {
   ElMessage.success('退出成功')
