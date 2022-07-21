@@ -91,10 +91,9 @@ export default {
     feature: 'Feature',
     chapter: 'Chapter',
     author: 'Author',
-    name: 'Sunday',
-    job: 'A front-end development program',
-    Introduction:
-      'A senior technical expert, once worked in a domestic first-line Internet company, and has coordinated multiple large-scale projects with more than tens of millions of users. Committed to researching big front-end technology, he has been invited to participate in domestic front-end technology sharing sessions many times, such as: Google China Technology Sharing Session in 2018.'
+    name: 'Pithy',
+    job: 'awspi',
+    Introduction: 'https://github.com/awspi'
   },
   userInfo: {
     print: 'Print',
