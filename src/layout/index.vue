@@ -13,6 +13,8 @@
       <div class="fixed-header">
         <!-- 顶部navbar -->
         <nav-bar></nav-bar>
+        <!-- tags -->
+        <tags-view></tags-view>
       </div>
       <!-- 内容区 -->
       <app-main></app-main>
@@ -24,6 +26,7 @@
 import NavBar from './components/Navbar.vue'
 import AppMain from './components/AppMain.vue'
 import SideBar from './components/Sidebar'
+import TagsView from '@/components/TagsView'
 </script>
 
 <style lang="scss" scoped>
