@@ -3,7 +3,12 @@ import login from './sys/login'
 import profile from './sys/profile'
 import feature from './user/feature'
 import chapter from './user/chapter'
-import { userManage, importExcel, deteleUser } from './user-manage/user-manage'
+import {
+  userManage,
+  importExcel,
+  deteleUser,
+  getUserManageAllList
+} from './user-manage/user-manage'
 
 Mock.mock('/mock/sys/login', (req, res) => {
   return login(req, res)
@@ -26,4 +31,7 @@ Mock.mock('/mock/user-manage/batch/import', (req, res) => {
 })
 Mock.mock(/\/user-manage\/detele\//, 'get', (req, res) => {
   return deteleUser(req, res)
+})
+Mock.mock('/mock/user-manage/all-list', 'get', (req, res) => {
+  return getUserManageAllList(req, res)
 })

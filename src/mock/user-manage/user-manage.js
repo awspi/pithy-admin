@@ -118,3 +118,14 @@ export const deteleUser = (req, res) => {
     message: '删除成功！'
   }
 }
+
+export const getUserManageAllList = (req, res) => {
+  return {
+    success: true,
+    code: 200,
+    data: {
+      list: localCache.getItem('mock-users')
+    },
+    message: 'success'
+  }
+}
