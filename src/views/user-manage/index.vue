@@ -57,16 +57,19 @@
           fixed="right"
           width="200"
         >
-          <template #default>
+          <template #default="{ row }">
             <el-button type="primary" size="small">{{
               $t('msg.excel.show')
             }}</el-button>
             <el-button type="primary" size="small">{{
               $t('msg.excel.showRole')
             }}</el-button>
-            <el-button type="primary" size="small">{{
-              $t('msg.excel.remove')
-            }}</el-button>
+            <el-button
+              type="primary"
+              size="small"
+              @click="onRemoveClick(row)"
+              >{{ $t('msg.excel.remove') }}</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -88,10 +91,12 @@
 
 <script setup>
 import { ref, onActivated } from 'vue'
-import { getUserManageList } from '@/api/user-manage'
+import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-
+import { ElMessage, ElMessageBox } from 'element-plus'
+const i18n = useI18n()
 //获取数据
 const tableData = ref([])
 const total = ref(0) //总数
@@ -102,6 +107,7 @@ const getListData = async () => {
     page: page.value,
     size: size.value
   })
+  console.log('result', result)
   tableData.value = result.list
   total.value = result.total
 }
@@ -110,15 +116,34 @@ watchSwitchLang(getListData())
 //handleSizeChange
 const handleSizeChange = (currrentSize) => {
   size.value = currrentSize
+  getListData()
 }
 const handleCurrentChange = (currrentPage) => {
   page.value = currrentPage
+  getListData()
 }
 
 //excel导入按钮
 const router = useRouter()
 const onImportExcelClick = () => {
   router.push('/user/import')
+}
+
+//row 删除按钮
+const onRemoveClick = (row) => {
+  ElMessageBox.confirm(
+    i18n.t('msg.excel.dialogTitle1') +
+      row.username +
+      i18n.t('msg.excel.dialogTitle2'),
+    {
+      type: 'warning'
+    }
+  ).then(async () => {
+    deleteUser(row._id)
+    ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+    // 重新渲染数据
+    getListData()
+  })
 }
 
 //keep-alive组件被重新激活时,重新查询数据

@@ -5,8 +5,8 @@ import request from '@/utils/request'
 export const getUserManageList = (data) => {
   return request({
     url: '/user-manage/list',
-    // params: data //上线时应该是params
-    data
+    params: data
+    // data
   })
 }
 /**
@@ -17,5 +17,13 @@ export const userBatchImport = (data) => {
     url: '/user-manage/batch/import',
     method: 'POST',
     data
+  })
+}
+/**
+ * 删除指定数据
+ */
+export const deleteUser = (id) => {
+  return request({
+    url: `/user-manage/detele/${id}`
   })
 }
