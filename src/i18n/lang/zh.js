@@ -83,7 +83,7 @@ export default {
     sidebarDesc: '项目功能菜单'
   },
   profile: {
-    muted: '《vue3 改写 vue-element-admin，实现后台前端综合解决方案》项目演示',
+    muted: 'pithy-admin ,后台管理系统综合解决方案',
     introduce: '介绍',
     projectIntroduction: '项目介绍',
     projectFunction: '项目功能',

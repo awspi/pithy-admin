@@ -15,7 +15,7 @@
           height="100px"
           width="100px"
         >
-          <h3>{{ $store.getters.userInfo.title }}</h3>
+          <h3>hello</h3>
         </pan-thumb>
       </div>
       <!-- 姓名/角色 -->
@@ -52,7 +52,7 @@
               v-for="item in features"
               :key="item.title"
             >
-              <div>{{ item.title }}</div>
+              <div class="progress-item-title">{{ item.title }}</div>
               <el-progress
                 status="success"
                 :percentage="item.percentage"
@@ -121,6 +121,7 @@ defineProps({
           div {
             font-size: 14px;
             margin-bottom: 2px;
+            // width: 85%;
           }
         }
       }
