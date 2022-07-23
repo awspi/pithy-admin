@@ -10,6 +10,7 @@
         calss="excel-upload-input"
         accept=".xlsx,.xls"
         @change="handleChange"
+        style="display: none"
       />
     </div>
     <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API -->

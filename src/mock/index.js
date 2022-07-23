@@ -7,7 +7,8 @@ import {
   userManage,
   importExcel,
   deteleUser,
-  getUserManageAllList
+  getUserManageAllList,
+  userDetail
 } from './user-manage/user-manage'
 
 Mock.mock('/mock/sys/login', (req, res) => {
@@ -34,4 +35,7 @@ Mock.mock(/\/user-manage\/detele\//, 'get', (req, res) => {
 })
 Mock.mock('/mock/user-manage/all-list', 'get', (req, res) => {
   return getUserManageAllList(req, res)
+})
+Mock.mock(/\/user-manage\/detail/, 'get', (req, res) => {
+  return userDetail(req, res)
 })

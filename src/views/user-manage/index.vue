@@ -58,9 +58,12 @@
           width="200"
         >
           <template #default="{ row }">
-            <el-button type="primary" size="small">{{
-              $t('msg.excel.show')
-            }}</el-button>
+            <el-button
+              type="primary"
+              size="small"
+              @click="onShowClick(row._id)"
+              >{{ $t('msg.excel.show') }}</el-button
+            >
             <el-button type="primary" size="small">{{
               $t('msg.excel.showRole')
             }}</el-button>
@@ -99,6 +102,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ExportToExcel from './components/Export2Excel.vue'
+
 const i18n = useI18n()
 
 //导出excel
@@ -137,7 +141,10 @@ const router = useRouter()
 const onImportExcelClick = () => {
   router.push('/user/import')
 }
-
+//row 查看用户详情按钮
+const onShowClick = (id) => {
+  router.push(`/user/info/${id}`)
+}
 //row 删除按钮
 const onRemoveClick = (row) => {
   ElMessageBox.confirm(

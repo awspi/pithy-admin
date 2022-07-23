@@ -11,10 +11,9 @@ const getQuery = (url, name) => {
     }
   }
   return null
-}
-
-export const userManage = (req, res) => {
-  //初始化数据
+} //初始化数据
+const init = () => {
+  //userManage
   if (!localCache.getItem('mock-users')) {
     localCache.setItem('mock-users', [
       {
@@ -49,6 +48,10 @@ export const userManage = (req, res) => {
       }
     ])
   }
+}
+export const userManage = (req, res) => {
+  //初始化数据
+  init()
   const userList = localCache.getItem('mock-users')
   // 获取传递参数
   const pageindex = getQuery(req.url, 'page')
@@ -125,6 +128,50 @@ export const getUserManageAllList = (req, res) => {
     code: 200,
     data: {
       list: localCache.getItem('mock-users')
+    },
+    message: 'success'
+  }
+}
+export const userDetail = (req, res) => {
+  const _id = req.url.split('/')[4]
+  return {
+    success: true,
+    code: 200,
+    data: {
+      role: [
+        {
+          id: '1',
+          title: '超级管理员'
+        }
+      ],
+      remark: ['超级管理员', 'BOSS'],
+      experience: [
+        {
+          startTime: '1538323200000',
+          endTime: '1551369600000',
+          title: '慕课网',
+          desc: '混合开发京东商城'
+        },
+        {
+          startTime: '1614528000000',
+          endTime: '1625068800000',
+          title: '慕课网',
+          desc: 'uni-app 开发企业级小程序'
+        }
+      ],
+      _id,
+      id: '0',
+      openTime: '1433088000000',
+      username: 'super-admin',
+      title: '超级管理员',
+      mobile: '188xxxx0001',
+      avatar:
+        'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207212113528.png',
+      gender: '男',
+      nationality: '汉',
+      address: '北京市朝阳区xx大道 11xx0 号 3 层',
+      major: '在线职业教育平台',
+      glory: '国内领先的线上 IT 教育品牌'
     },
     message: 'success'
   }
