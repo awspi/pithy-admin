@@ -11,7 +11,8 @@ const getQuery = (url, name) => {
     }
   }
   return null
-} //初始化数据
+}
+//初始化数据
 const init = () => {
   //userManage
   if (!localCache.getItem('mock-users')) {
@@ -36,6 +37,10 @@ const init = () => {
           {
             id: '2',
             title: '管理员'
+          },
+          {
+            id: '5',
+            title: '保安队长'
           }
         ],
         _id: '612710a0ec87aa543c9c341e',
@@ -132,6 +137,7 @@ export const getUserManageAllList = (req, res) => {
     message: 'success'
   }
 }
+//写死了
 export const userDetail = (req, res) => {
   const _id = req.url.split('/')[4]
   return {
@@ -175,4 +181,31 @@ export const userDetail = (req, res) => {
     },
     message: 'success'
   }
+}
+
+export const userRoles = (req, res) => {
+  const _id = req.url.split('/')[4]
+  const userList = localCache.getItem('mock-users')
+  const targetUser = userList.find((user) => {
+    return user._id === _id
+  })
+  return {
+    success: true,
+    code: 200,
+    data: targetUser,
+    message: 'success'
+  }
+}
+export const updateRole = (req, res) => {
+  const userList = localCache.getItem('mock-users')
+  const _id = req.url.split('/')[4]
+  const roles = JSON.parse(req.body).roles
+  const newUserList = userList.map((user) => {
+    if (user._id === _id) {
+      user.role = roles
+    }
+    return user
+  })
+  localCache.setItem('mock-users', newUserList)
+  return { success: true, code: 200, data: null, message: '更新成功' }
 }

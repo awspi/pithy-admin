@@ -64,9 +64,12 @@
               @click="onShowClick(row._id)"
               >{{ $t('msg.excel.show') }}</el-button
             >
-            <el-button type="primary" size="small">{{
-              $t('msg.excel.showRole')
-            }}</el-button>
+            <el-button
+              type="primary"
+              size="small"
+              @click="onShowRoleClick(row)"
+              >{{ $t('msg.excel.showRole') }}</el-button
+            >
             <el-button
               type="primary"
               size="small"
@@ -91,19 +94,41 @@
     </el-card>
     <!-- ExportToExcel dialog  -->
     <export-to-excel v-model="exportToExcelVisiable"></export-to-excel>
+    <!-- 分配角色dialog  -->
+    <role-dialog
+      v-model="roleDialogVisible"
+      :userId="selectUserId"
+      @updateRole="getListData"
+    ></role-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, onActivated, watch } from 'vue'
 import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ExportToExcel from './components/Export2Excel.vue'
+import roleDialog from './components/roles.vue'
 
 const i18n = useI18n()
+
+// dialog
+const roleDialogVisible = ref(false)
+// 分配角色click
+const selectUserId = ref('')
+const onShowRoleClick = (row) => {
+  selectUserId.value = row._id
+  roleDialogVisible.value = true
+}
+
+// 保证每次打开重新获取用户角色数据
+//ifnot 子组件watch(selectUserId)的时候,如果连着打开同一个用户,selectUserId不变,watch不到
+watch(roleDialogVisible, (val) => {
+  if (!val) selectUserId.value = ''
+})
 
 //导出excel
 const exportToExcelVisiable = ref(false)

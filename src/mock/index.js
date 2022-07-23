@@ -8,8 +8,12 @@ import {
   importExcel,
   deteleUser,
   getUserManageAllList,
-  userDetail
+  userDetail,
+  userRoles,
+  updateRole
 } from './user-manage/user-manage'
+import { roleList, distribute, getRolePermisson } from './role/role'
+import { permissionList } from './permission/permission'
 
 Mock.mock('/mock/sys/login', (req, res) => {
   return login(req, res)
@@ -38,4 +42,25 @@ Mock.mock('/mock/user-manage/all-list', 'get', (req, res) => {
 })
 Mock.mock(/\/user-manage\/detail/, 'get', (req, res) => {
   return userDetail(req, res)
+})
+Mock.mock(/\/mock\/user-manage\/role/, 'get', (req, res) => {
+  return userRoles(req, res)
+})
+Mock.mock(/\/user-manage\/update-role/, 'post', (req, res) => {
+  return updateRole(req, res)
+})
+
+//
+Mock.mock('/mock/role/list', 'get', (req, res) => {
+  return roleList(req, res)
+})
+Mock.mock('/mock/role/distribute-permission', 'post', (req, res) => {
+  return distribute(req, res)
+})
+Mock.mock(/\/mock\/role\/permission/, 'get', (req, res) => {
+  return getRolePermisson(req, res)
+})
+//
+Mock.mock('/mock/permission/list', 'get', (req, res) => {
+  return permissionList(req, res)
 })
