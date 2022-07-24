@@ -14,7 +14,91 @@ import {
 } from './user-manage/user-manage'
 import { roleList, distribute, getRolePermisson } from './role/role'
 import { permissionList } from './permission/permission'
-
+//初始化数据
+import localCache from '@/utils/storage'
+const init = () => {
+  //users
+  if (!localCache.getItem('mock-users')) {
+    localCache.setItem('mock-users', [
+      {
+        role: [
+          {
+            id: '1',
+            title: '超级管理员'
+          }
+        ],
+        _id: '612710a0ec87aa543c9c341d',
+        id: '0',
+        openTime: '1433088000000',
+        username: 'super-admin',
+        mobile: '188xxxx0001',
+        avatar:
+          'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207190240867.png'
+      },
+      {
+        role: [
+          {
+            id: '2',
+            title: '管理员'
+          },
+          {
+            id: '5',
+            title: '保安队长'
+          }
+        ],
+        _id: '612710a0ec87aa543c9c341e',
+        id: '1',
+        username: 'admin',
+        openTime: '1559318400000',
+        mobile: '188xxxx0002',
+        avatar:
+          'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207212113528.png'
+      }
+    ])
+  }
+  //roles
+  if (!localCache.getItem('mock-roles')) {
+    localCache.setItem('mock-roles', [
+      {
+        id: '1',
+        title: '超级管理员',
+        describe: '唯一账号，可以操作系统所有功能',
+        permission: ['1', '1-1', '1-2', '1-3', '2', '2-1', '3', '4', '5']
+      },
+      {
+        id: '2',
+        title: '管理员',
+        describe: '由超管指定，可以为多个，协助超管管理系统',
+        permission: ['1', '1-2', '1-3', '2', '2-1', '3', '4', '5']
+      },
+      {
+        id: '3',
+        title: '人事经理',
+        describe: '主管人事相关业务',
+        permission: ['1', '1-2', '1-3']
+      },
+      {
+        id: '4',
+        title: '销售经理',
+        describe: '主管销售相关业务',
+        permission: []
+      },
+      {
+        id: '5',
+        title: '保安队长',
+        describe: '主管安保相关业务',
+        permission: []
+      },
+      {
+        id: '6',
+        title: '员工',
+        describe: '普通员工',
+        permission: ['4', '5']
+      }
+    ])
+  }
+}
+init()
 Mock.mock('/mock/sys/login', (req, res) => {
   return login(req, res)
 })
