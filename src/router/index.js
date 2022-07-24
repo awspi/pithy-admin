@@ -1,9 +1,28 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import layout from '@/layout/index.vue'
+import store from '@/store'
+//
+import UserManageRouter from './modules/UserManage'
+import RoleListRouter from './modules/RoleList'
+import PermissionListRouter from './modules/PermissionList'
+import ArticleRouter from './modules/Article'
+import ArticleCreaterRouter from './modules/ArticleCreate'
+
+/**
+ * 私有路由表
+ */
+export const privateRoutes = [
+  UserManageRouter,
+  RoleListRouter,
+  PermissionListRouter,
+  ArticleRouter,
+  ArticleCreaterRouter
+]
+
 /**
  *公开路由表
  */
-const publicRoutes = [
+export const publicRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index')
@@ -39,108 +58,29 @@ const publicRoutes = [
     ]
   }
 ]
-/**
- * 私有路由表
- */
-const privateRoutes = [
-  {
-    path: '/user',
-    component: layout,
-    redirect: '/user/manage',
-    meta: {
-      title: 'user',
-      icon: 'personnel'
-    },
-    children: [
-      {
-        path: '/user/manage',
-        component: () => import('@/views/user-manage/index'),
-        meta: {
-          title: 'userManage',
-          icon: 'personnel-manage'
-        }
-      },
-      {
-        path: '/user/role',
-        component: () => import('@/views/role-list/index'),
-        meta: {
-          title: 'roleList',
-          icon: 'role'
-        }
-      },
-      {
-        path: '/user/permission',
-        component: () => import('@/views/permission-list/index'),
-        meta: {
-          title: 'permissionList',
-          icon: 'permission'
-        }
-      },
-      {
-        path: '/user/info/:id',
-        name: 'userInfo',
-        props: true, //  路由传参
-        component: () => import('@/views/user-info/index'),
-        meta: {
-          title: 'userInfo'
-        }
-      },
-      {
-        path: '/user/import',
-        name: 'import',
-        component: () => import('@/views/import/index'),
-        meta: {
-          title: 'excelImport'
-        }
-      }
-    ]
-  },
-  {
-    path: '/article',
-    component: layout,
-    redirect: '/article/ranking',
-    meta: {
-      title: 'article',
-      icon: 'article'
-    },
-    children: [
-      {
-        path: '/article/ranking',
-        component: () => import('@/views/article-ranking/index'),
-        meta: {
-          title: 'articleRanking',
-          icon: 'article-ranking'
-        }
-      },
-      {
-        path: '/article/:id',
-        component: () => import('@/views/article-detail/index'),
-        meta: {
-          title: 'articleDetail'
-        }
-      },
-      {
-        path: '/article/create',
-        component: () => import('@/views/article-create/index'),
-        meta: {
-          title: 'articleCreate',
-          icon: 'article-create'
-        }
-      },
-      {
-        path: '/article/editor/:id',
-        component: () => import('@/views/article-create/index'),
-        meta: {
-          title: 'articleEditor'
-        }
-      }
-    ]
-  }
-]
 
+// 1. 获取 **权限数据**
+// 2. **私有路由表** <u>不再被直接</u>加入到 `routes` 中
+// 3. 利用 [addRoute API](https://next.router.vuejs.org/zh/api/#addroute) 动态添加路由到 **路由表** 中
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [...publicRoutes, ...privateRoutes]
+  routes: publicRoutes
 })
-
+/**
+ * 初始化路由表
+ */
+export function resetRouter() {
+  console.log(store.getters.userInfo)
+  if (
+    store.getters.userInfo &&
+    store.getters.userInfo.permission &&
+    store.getters.userInfo.permission.menus
+  ) {
+    //删除动态添加的路由
+    const menus = store.getters.userInfo.permission.menus
+    menus.forEach((menu) => {
+      router.removeRoute(menu)
+    })
+  }
+}
 export default router

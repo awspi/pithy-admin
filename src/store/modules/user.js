@@ -2,7 +2,7 @@ import { login, getUserInfo } from '@/api/sys'
 import md5 from 'md5'
 import localCache from '@/utils/storage'
 import { TOKEN } from '@/constant/index'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 import { setTimeStamp } from '@/utils/auth'
 export default {
   namespaced: true,
@@ -44,9 +44,15 @@ export default {
       })
     },
     logout({ commit }) {
+      resetRouter()
+      //
       commit('setToken', '')
       commit('setUserInfo', {})
-      localCache.clear()
+      // localCache.clear()
+      localCache.removeItem('token')
+      localCache.removeItem('timestamp')
+      localCache.removeItem('tagsView')
+      localCache.removeItem('mock-token')
       router.push('/login')
     },
     /**

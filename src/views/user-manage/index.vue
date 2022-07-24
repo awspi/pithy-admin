@@ -3,7 +3,11 @@
     <!-- header -->
     <el-card class="header">
       <div>
-        <el-button type="primary" @click="onImportExcelClick">
+        <el-button
+          type="primary"
+          @click="onImportExcelClick"
+          v-permission="['importUser']"
+        >
           {{ $t('msg.excel.importExcel') }}</el-button
         >
         <el-button type="success" @click="onToExcelClick">
@@ -68,12 +72,14 @@
               type="primary"
               size="small"
               @click="onShowRoleClick(row)"
+              v-permission="['distributeRole']"
               >{{ $t('msg.excel.showRole') }}</el-button
             >
             <el-button
               type="primary"
               size="small"
               @click="onRemoveClick(row)"
+              v-permission="['removeUser']"
               >{{ $t('msg.excel.remove') }}</el-button
             >
           </template>

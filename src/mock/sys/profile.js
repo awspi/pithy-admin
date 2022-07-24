@@ -99,22 +99,29 @@ const getUserPermission = (_id) => {
 }
 export default function (req, res) {
   const _id = localCache.getItem('mock-token')._id
-  console.log('123123', _id)
   const permission = getUserPermission(_id)
+
+  const username = localCache.getItem('mock-token').username
+  const roleId = localCache.getItem('mock-token').roleId
+  const roleTitle =
+    typeof localCache.getItem('mock-token').roleTitle === 'string'
+      ? localCache.getItem('mock-token').roleTitle
+      : localCache.getItem('mock-token').roleTitle.join(' ')
+  //动态路由用的是permission ,role的展示不影响
   return {
     success: true,
     code: 200,
     data: {
       role: [
         {
-          id: '1',
-          title: '超级管理员'
+          id: roleId,
+          title: roleTitle
         }
       ],
       _id: '612710a0ec87aa543c9c341d',
       id: '0',
-      username: 'super-admin',
-      title: '超级管理员',
+      username,
+      title: roleTitle,
       avatar:
         'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207190240867.png',
 
