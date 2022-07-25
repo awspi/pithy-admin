@@ -263,10 +263,10 @@ Mock.mock('/mock/permission/list', 'get', (req, res) => {
 })
 
 //
-Mock.mock('/mock/article/list', 'get', (req, res) => {
+Mock.mock(/\/mock\/article\/list/, 'get', (req, res) => {
   return getArticleList(req, res)
 })
-Mock.mock('/mock/article/list', 'post', (req, res) => {
+Mock.mock('/mock/article/sort', 'post', (req, res) => {
   return articleSort(req, res)
 })
 Mock.mock('/mock/article/create', 'post', (req, res) => {

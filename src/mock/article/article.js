@@ -12,7 +12,16 @@ const getQuery = (url, name) => {
   }
   return null
 }
+const sortRanking = () => {
+  const articleList = localCache.getItem('mock-articles')
+  const afterArticle = articleList.map((article, index) => {
+    article.ranking = index + 1
+    return article
+  })
+  localCache.setItem('mock-articles', afterArticle)
+}
 export const getArticleList = (req, res) => {
+  sortRanking()
   const articleList = localCache.getItem('mock-articles')
   // 获取传递参数
   const pageindex = getQuery(req.url, 'page')
@@ -26,7 +35,9 @@ export const getArticleList = (req, res) => {
     success: true,
     code: 200,
     data: {
-      list: returnList,
+      list: returnList.sort((a, b) => {
+        return a.ranking - b.ranking
+      }),
       total: articleList.length,
       page: pageindex,
       size: pagesize
@@ -37,13 +48,22 @@ export const getArticleList = (req, res) => {
 export const articleSort = (req, res) => {
   const initRanking = JSON.parse(req.body).initRanking
   const finalRanking = JSON.parse(req.body).finalRanking
+  console.log(initRanking, finalRanking)
   const articleList = localCache.getItem('mock-articles')
-  const newArticleList = articleList.map((article) => {
+  const newArticleList = []
+  // for (let i = 0; i < articleList.length; i++) {
+
+  // }
+  articleList.forEach((article) => {
+    //交换ranking
     if (article.ranking === initRanking) {
-      article.role = finalRanking
+      article.ranking = finalRanking
+    } else if (article.ranking === finalRanking) {
+      article.ranking = initRanking
     }
-    return article
+    newArticleList.push(article)
   })
+  console.log(newArticleList)
   localCache.setItem('mock-articles', newArticleList)
   return { success: true, code: 200, data: null, message: '排名重设成功' }
 }
@@ -83,7 +103,7 @@ export const deleteArticle = (req, res) => {
       newData.push(item)
     }
   })
-  localCache.setItem('mock-users', newData) //会直接覆盖
+  localCache.setItem('mock-articles', newData) //会直接覆盖
   return {
     success: true,
     code: 200,
@@ -92,7 +112,7 @@ export const deleteArticle = (req, res) => {
   }
 }
 export const articleContent = (req, res) => {
-  const _id = req.url.split('/')[4]
+  const _id = req.url.split('/')[3]
   const articleList = localCache.getItem('mock-articles')
   const targetArticle = articleList.find((article) => {
     return article._id === _id
