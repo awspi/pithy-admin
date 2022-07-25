@@ -13,7 +13,7 @@ function checkPermission(el, binding) {
     const hasPermission = points.some((point) => {
       return value.includes(point) //传入的值数组里有没有所有功能指令的某一个
     })
-    // 如果无法匹配，则表示当前用户无该指令，那么删除对应的功能按钮
+    // 如果无法匹配，则表示当前用户无该指令，那么删除对应的功能按钮的dom
     if (!hasPermission) {
       el.parentNode && el.parentNode.removeChild(el)
     }

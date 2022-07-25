@@ -12,51 +12,8 @@ const getQuery = (url, name) => {
   }
   return null
 }
-//初始化数据
-const init = () => {
-  //userManage
-  if (!localCache.getItem('mock-users')) {
-    localCache.setItem('mock-users', [
-      {
-        role: [
-          {
-            id: '1',
-            title: '超级管理员'
-          }
-        ],
-        _id: '612710a0ec87aa543c9c341d',
-        id: '0',
-        openTime: '1433088000000',
-        username: 'super-admin',
-        mobile: '188xxxx0001',
-        avatar:
-          'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207190240867.png'
-      },
-      {
-        role: [
-          {
-            id: '2',
-            title: '管理员'
-          },
-          {
-            id: '5',
-            title: '保安队长'
-          }
-        ],
-        _id: '612710a0ec87aa543c9c341e',
-        id: '1',
-        username: 'admin',
-        openTime: '1559318400000',
-        mobile: '188xxxx0002',
-        avatar:
-          'https://wsp-typora.oss-cn-hangzhou.aliyuncs.com/images/202207212113528.png'
-      }
-    ])
-  }
-}
+
 export const userManage = (req, res) => {
-  //初始化数据
-  init()
   const userList = localCache.getItem('mock-users')
   // 获取传递参数
   const pageindex = getQuery(req.url, 'page')
@@ -117,8 +74,8 @@ export const deteleUser = (req, res) => {
       newData.push(item)
     }
   })
-  localCache.removeItem('mock-users')
-  localCache.setItem('mock-users', newData)
+  // localCache.removeItem('mock-users')
+  localCache.setItem('mock-users', newData) //会直接覆盖
   return {
     success: true,
     code: 200,
