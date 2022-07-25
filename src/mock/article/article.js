@@ -85,7 +85,8 @@ export const createArticle = (req, res) => {
     content,
     _v: 0
   }
-  localCache.setItem('mock-articles', articleList.push(obj))
+  articleList.unshift(obj)
+  localCache.setItem('mock-articles', articleList)
   return {
     success: true,
     code: 200,

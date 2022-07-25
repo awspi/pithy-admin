@@ -16,7 +16,7 @@ export default {
       }
     },
     {
-      path: '/article/:id',
+      path: '/article/:id', //params.id
       component: () => import('@/views/article-detail/index'),
       meta: {
         title: 'articleDetail'
